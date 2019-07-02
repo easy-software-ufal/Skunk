@@ -13,11 +13,11 @@
         </layout>
     </appender>
 
-    <logger name="de.ovgu.skunk">
+    <logger name="com.easy">
         <level value="info"/>
     </logger>
 
-    <logger name="de.ovgu.skunk.detection.input.SrcMlFolderReader">
+    <logger name="SrcMlFolderReader">
         <level value="info"/>
     </logger>
 

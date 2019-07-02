@@ -1,4 +1,4 @@
-package de.ovgu.skunk.detection.input;
+package com.easy.detection.input;
 
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;

@@ -1,0 +1,30 @@
+Requirements:
+	- extended cppStats (https://github.com/clhunsen/cppstats)
+
+HowTo:
+	1. Download the extended cppStats from github
+	2. Copy the path to the source parent folder (the source files have to be in a source folder) to "cppstats_input.txt" in the cppstats folder
+	3. Run cppStats in a terminal with the 'featurelocations' and 'general' options
+		--> ./cppstats.py --kind 'featurelocations'
+		--> ./cppstats.py --kind 'general'
+	4. Run the program. The following arguments are possible and define which processes are done during runtime
+		--source [Path/To/A/CppStatsResult/Folder]
+		--processed [Path/To/A/ProcessedData/Folder]
+		--config [Path/To/A/CodeSmellConfiguration.file]
+		--SaveIntermediate
+		
+Examples:
+	--source examplePath --saveintermediate
+		The cppstats and SrcMl files will be processed and the processed data will be saved to the working directory
+	
+	--source examplePath --saveintermediate --config examplePath2
+		The cppstats and SrcML files will be processed and saved to the working directoy for later used.
+		Afterwards the detection will be performed with the given configuration. A result file will be saved to the working directory.
+		
+	--processed examplePath --config examplePath2
+		Previously processed data will be loaded and the detection process will be performed afterwards. A result file will be saved to the working directory.
+
+Results:
+	
+
+Metrics:
