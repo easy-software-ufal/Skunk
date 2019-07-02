@@ -183,9 +183,9 @@ public class DetectionConfig {
                 if (line.contains(";")) {
                     String[] split = line.split(";");
 
-                    if (split[1].equals("mandatory"))
+                    if (split.length > 1 && split[1].equals("mandatory"))
                         mandatory = true;
-                    else if (split[1].matches("(\\d)+(\\.)(\\d)+"))
+                    else if (split.length > 1 && split[1].matches("(\\d)+(\\.)(\\d)+"))
                         weight = Float.parseFloat(split[1].trim());
 
                     if (split.length == 3 && split[2].equals("mandatory"))
