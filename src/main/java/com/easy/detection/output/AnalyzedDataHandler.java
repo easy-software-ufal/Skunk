@@ -103,7 +103,7 @@ public class AnalyzedDataHandler {
     }
 
     /**** TXT Start End Saving *****/
-    public void SaveTextResults(Map<FeatureReference, List<SmellReason>> results) {
+    public void SaveTextResults(Map<FeatureReference, List<SmellReason>> results, String resultsPath) {
         // get the results of the complete detection process and the whole
         // project
         String overview = this.getOverviewResults(results);
@@ -114,14 +114,13 @@ public class AnalyzedDataHandler {
         String methods = this.getMethodSortedResults(results);
         // get the results sorted per feature
         String features = this.getFeatureSortedResults(results);
-        String fileNamePrefix = ctx.getDetectionOutputFilenamePrefix();
         SimpleFileWriter writer = new SimpleFileWriter();
         try {
-            writer.write(new java.io.File(fileNamePrefix + "overview.txt"), overview);
-            writer.write(new java.io.File(fileNamePrefix + "attributes.txt"), attributes);
-            writer.write(new java.io.File(fileNamePrefix + "files.txt"), files);
-            writer.write(new java.io.File(fileNamePrefix + "methods.txt"), methods);
-            writer.write(new java.io.File(fileNamePrefix + "features.txt"), features);
+            writer.write(new java.io.File(resultsPath + "/_detection_overview.txt"), overview);
+            writer.write(new java.io.File(resultsPath + "/_detection_attributes.txt"), attributes);
+            writer.write(new java.io.File(resultsPath + "/_detection_files.txt"), files);
+            writer.write(new java.io.File(resultsPath + "/_detection_methods.txt"), methods);
+            writer.write(new java.io.File(resultsPath + "/_detection_features.txt"), features);
             System.out.println("Detection result files (" + writer.prettyFileNameList() + ") saved in `"
                     + writer.getDirForDisplay() + "'");
         } catch (IOException e) {
@@ -303,12 +302,12 @@ public class AnalyzedDataHandler {
 
     /**** TXT Start End Saving *****/
     /**** CSV Smell Value Saving ****/
-    public void SaveCsvResults() {
+    public void SaveCsvResults(String resultsPath) {
         // ensure consistent file naming
         String fileNamePrefix = ctx.getMetricsOutputFilenamePrefix();
-        String fnMethods = fileNamePrefix + "functions.csv";
-        String fnFeatures = fileNamePrefix + "features.csv";
-        String fnFiles = fileNamePrefix + "files.csv";
+        String fnMethods = resultsPath + "/_metrics_functions.csv";
+        String fnFeatures = resultsPath + "/_metrics_features.csv";
+        String fnFiles = resultsPath + "/_metrics_files.csv";
         String dirName;
         try {
             dirName = (new java.io.File(fnMethods)).getCanonicalFile().getParent();
