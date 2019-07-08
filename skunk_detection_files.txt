@@ -1,0 +1,16 @@
+>>> Code Smell Configuration 
+[Feature-based Values]
+
+[Method-based Values]
+Ratio - LOAC to LOC: 0.5; mandatory=true
+Amount - Number of feature constants: 2; mandatory=true
+Amount - Number of feature locations: 2; mandatory=true
+Amount - Number of nestings: 1; mandatory=true
+
+[File-based Values]
+
+
+
+
+
+>>> File-Sorted Results:
