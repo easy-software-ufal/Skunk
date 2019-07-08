@@ -13,6 +13,8 @@ import org.apache.commons.cli.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -59,6 +61,7 @@ public class Skunk {
     }
 
     private void run(String[] args) {
+
         String cwd;
         try {
             cwd = new java.io.File(".").getCanonicalPath();
@@ -122,11 +125,15 @@ public class Skunk {
         System.out.println("NOFL: " + nofl);
         // run detection with current configuration (if present)
         if (conf != null) {
+
+            String currentDate = new SimpleDateFormat("yyyyMMddhhmm").format(new Date());
+            String resultsPath = currentDate + "_" + conf.type;
+
             Detector detector = new Detector(ctx);
             Map<FeatureReference, List<SmellReason>> res = detector.Perform();
             AnalyzedDataHandler presenter = new AnalyzedDataHandler(ctx);
-            presenter.SaveTextResults(res);
-            presenter.SaveCsvResults();
+            presenter.SaveTextResults(res, resultsPath);
+            presenter.SaveCsvResults(resultsPath);
         }
         System.out.println("Exiting Skunk.");
     }

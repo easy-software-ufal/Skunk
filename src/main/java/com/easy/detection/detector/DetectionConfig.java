@@ -10,6 +10,9 @@ import java.util.List;
 //@formatter:off
 public class DetectionConfig {
 
+    // config file name
+    public String type = "";
+
     /**
      * A ratio that defines the difference of a feature to the mean lofc of
      * other features (1 = returns all features that are as big as the mean
@@ -167,6 +170,9 @@ public class DetectionConfig {
     public DetectionConfig(String pathToFile) throws IOException, NoSuchFieldException, SecurityException,
             NumberFormatException, IllegalArgumentException, IllegalAccessException {
         this.configFilePath = pathToFile;
+
+        //get the smell type of the configuration file
+        this.type = pathToFile.substring(pathToFile.lastIndexOf("/") + 1);
 
         // read all lines of the configuration file
         List<String> lines = FileUtils.readLines(new File(pathToFile));
