@@ -8,6 +8,7 @@ import com.easy.detection.detector.SmellReason;
 import com.easy.detection.input.CppStatsFolderReader;
 import com.easy.detection.input.SrcMlFolderReader;
 import com.easy.detection.output.AnalyzedDataHandler;
+import com.easy.util.FileUtils;
 import org.apache.commons.cli.*;
 
 import java.io.File;
@@ -127,7 +128,10 @@ public class Skunk {
         if (conf != null) {
 
             String currentDate = new SimpleDateFormat("yyyyMMddhhmm").format(new Date());
-            String resultsPath = currentDate + "_" + conf.type;
+            String processedProjectDir = FileUtils.relPathForDisplay(sourcePath.get());
+            //get the project name from path provided
+            String projectName = processedProjectDir.substring(processedProjectDir.lastIndexOf("/") + 1);
+            String resultsPath = currentDate + "_" + projectName + "_" + conf.type;
 
             Detector detector = new Detector(ctx);
             Map<FeatureReference, List<SmellReason>> res = detector.Perform();
