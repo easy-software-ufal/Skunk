@@ -172,7 +172,8 @@ public class DetectionConfig {
         this.configFilePath = pathToFile;
 
         //get the smell type of the configuration file
-        this.type = pathToFile.substring(pathToFile.lastIndexOf("/") + 1);
+        String configFileName = pathToFile.substring(pathToFile.lastIndexOf("/") + 1);
+        this.type = configFileName.substring(0, configFileName.length() - 4);
 
         // read all lines of the configuration file
         List<String> lines = FileUtils.readLines(new File(pathToFile));

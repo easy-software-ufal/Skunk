@@ -15,6 +15,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -126,13 +129,12 @@ public class Skunk {
         System.out.println("NOFL: " + nofl);
         // run detection with current configuration (if present)
         if (conf != null) {
-
-            String currentDate = new SimpleDateFormat("yyyyMMddhhmm").format(new Date());
+            String currentDate = DateTimeFormatter.ofPattern("yyyy.MM.dd-hh:mm").format(LocalDateTime.now());
             String processedProjectDir = FileUtils.relPathForDisplay(sourcePath.get());
-            //get the project name from path provided
+            // get the project name from path provided
             String projectName = processedProjectDir.substring(processedProjectDir.lastIndexOf("/") + 1);
             String resultsPath = currentDate + "_" + projectName + "_" + conf.type;
-
+            System.out.println("PATH:" + resultsPath);
             Detector detector = new Detector(ctx);
             Map<FeatureReference, List<SmellReason>> res = detector.Perform();
             AnalyzedDataHandler presenter = new AnalyzedDataHandler(ctx);
