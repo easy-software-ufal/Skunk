@@ -1,7 +1,7 @@
-Requirements:
+## Requirements:
 	- extended cppStats (https://github.com/clhunsen/cppstats)
 
-HowTo:
+## HowTo:
 	1. Download the extended cppStats from github
 	2. Copy the path to the source parent folder (the source files have to be in a source folder) to "cppstats_input.txt" in the cppstats folder
 	3. Run cppStats in a terminal with the 'featurelocations' and 'general' options
@@ -13,7 +13,7 @@ HowTo:
 		--config [Path/To/A/CodeSmellConfiguration.file]
 		--SaveIntermediate
 		
-Examples:
+## Examples:
 	--source examplePath --saveintermediate
 		The cppstats and SrcMl files will be processed and the processed data will be saved to the working directory
 	
