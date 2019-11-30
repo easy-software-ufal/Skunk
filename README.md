@@ -1,3 +1,6 @@
+<p align="center">
+  <a href="https://github.com/easy-software-ufal/Skunk"><img alt="Build status" src="https://github.com/easy-software-ufal/Skunk/workflows/Skunk/badge.svg"></a>
+</p>
 This fork is a mavenized version of the original repository, enabling easier building through Maven.
 
 Requirements:
