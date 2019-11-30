@@ -1,3 +1,5 @@
+This fork is a mavenized version of the original repository, enabling easier building through Maven.
+
 Requirements:
 	- extended cppStats (https://github.com/clhunsen/cppstats)
 
