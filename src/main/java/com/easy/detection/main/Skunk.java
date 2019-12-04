@@ -10,11 +10,17 @@ import com.easy.detection.input.SrcMlFolderReader;
 import com.easy.detection.output.AnalyzedDataHandler;
 import com.easy.util.FileUtils;
 import org.apache.commons.cli.*;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -127,17 +133,20 @@ public class Skunk {
         // run detection with current configuration (if present)
         if (conf != null) {
 
-            String currentDate = new SimpleDateFormat("yyyyMMddhhmm").format(new Date());
+            String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-hh-mm-ss"));
             String processedProjectDir = FileUtils.relPathForDisplay(sourcePath.get());
             //get the project name from path provided
             String projectName = processedProjectDir.substring(processedProjectDir.lastIndexOf("/") + 1);
-            String resultsPath = currentDate + "_" + projectName + "_" + conf.type;
+            Path resultsPath = Paths.get(projectName);
+            resultsPath = resultsPath.resolve(projectName).resolve("Skunk-results").resolve(currentDate).resolve(FilenameUtils.getBaseName(conf.type));
+            System.out.println(resultsPath.toFile().toString());
+            //String resultsPath = projectName + "_" + File.pathSeparator + currentDate + File.pathSeparator + "_" + FilenameUtils.getBaseName(conf.type);
 
             Detector detector = new Detector(ctx);
             Map<FeatureReference, List<SmellReason>> res = detector.Perform();
             AnalyzedDataHandler presenter = new AnalyzedDataHandler(ctx);
-            presenter.SaveTextResults(res, resultsPath);
-            presenter.SaveCsvResults(resultsPath);
+            presenter.SaveTextResults(res, resultsPath.toString());
+            presenter.SaveCsvResults(resultsPath.toString());
         }
         System.out.println("Exiting Skunk.");
     }
