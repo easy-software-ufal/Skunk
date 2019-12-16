@@ -117,8 +117,12 @@ public class CppStatsFeatureConstant {
                 continue;
 
                 // numbers only, or it begins with a number --> version numbers or whatever
-            else if (match.matches("(\\d)+$") || Character.isDigit(match.charAt(0)) || match.charAt(0) == '!')
+            else if (match.matches("(\\d)+$") || Character.isDigit(match.charAt(0)))
                 continue;
+
+            if(match.charAt(0) == '!') {
+                match = match.substring(1);
+            }
 
             // save feature expression and save boolean
             this.featureExpressions.add(match);

@@ -1,0 +1,20 @@
+>>> Code Smell Configuration 
+[Feature-based Values]
+
+[Method-based Values]
+Ratio - LOAC to LOC: 0.52; mandatory=true
+Amount - Number of feature constants: 2; mandatory=true
+Amount - Number of feature locations: 4; mandatory=true
+Amount - Number of nestings: 1; mandatory=true
+
+[File-based Values]
+
+
+>>> Complete Overview
+Number of features: 	0 (0.0% of 3 constants)
+Number of feature constants: 	0 (0.0% of 4 locations)
+Lines of annotated Code: 	0 (0.0% of 17 LOC)
+Lines of feature code: 		0
+Mean LOFC per feature: 		6
+
+

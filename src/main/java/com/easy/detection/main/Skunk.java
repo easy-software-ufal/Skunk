@@ -133,7 +133,7 @@ public class Skunk {
         // run detection with current configuration (if present)
         if (conf != null) {
 
-            String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-hh-mm-ss"));
+            String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-HH-mm-ss"));
             String processedProjectDir = FileUtils.relPathForDisplay(sourcePath.get());
             //get the project name from path provided
             String projectName = processedProjectDir.substring(processedProjectDir.lastIndexOf("/") + 1);
