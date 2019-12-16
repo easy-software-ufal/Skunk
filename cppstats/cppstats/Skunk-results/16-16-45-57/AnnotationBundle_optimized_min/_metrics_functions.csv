@@ -1,2 +1,0 @@
-FILE,Start,FUNCTION_SIGNATURE,ABSmell,LocationSmell,ConstantsSmell,NestingSmell,LOC,LOAC,LOFC,NOFL,NOFC_Dup,NOFC_NonDup,NONEST,NONEG
-test.c,1,int a(),4.794118,3.2941177,1.0,0.5,17,14,20,4,4,3,2,3
