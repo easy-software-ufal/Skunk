@@ -337,8 +337,10 @@ public class AnalyzedDataHandler {
                 // calculate values and add records
                 List<Object[]> fileData = new ArrayList<>();
                 for (File file : ctx.files.AllFiles()) {
-                    if (skipFile(file)) continue;
-                    fileData.add(p.dataRow(file));
+                    if (!skipFile(file)) {
+                        file.setSmelly(true);
+                    }
+                    fileData.add(p.dataRow(file, file.isSmelly()));
                 }
                 // sort by smell value
                 Collections.sort(fileData, new ComparatorChain<>(AFSmellComparator));
@@ -363,8 +365,10 @@ public class AnalyzedDataHandler {
                 csv.printRecord(p.headerRow());
                 List<Object[]> featureData = new ArrayList<>();
                 for (Feature feat : ctx.featureExpressions.GetFeatures()) {
-                    if (skipFeature(feat)) continue;
-                    featureData.add(p.dataRow(feat));
+                    if (!skipFeature(feat)) {
+                        feat.setSmelly(true);
+                    }
+                    featureData.add(p.dataRow(feat, feat.isSmelly()));
                 }
                 // sort by smell value
                 Collections.sort(featureData, new ComparatorChain<>(LGSmellComparator));
@@ -390,8 +394,10 @@ public class AnalyzedDataHandler {
                 // calculate values and add records
                 List<Object[]> methodData = new ArrayList<>();
                 for (Method meth : ctx.functions.AllMethods()) {
-                    if (skipMethod(meth)) continue;
-                    Object[] row = p.dataRow(meth);
+                    if (!skipMethod(meth)){
+                        meth.setSmelly(true);
+                    }
+                    Object[] row = p.dataRow(meth, meth.isSmelly());
                     methodData.add(row);
                 }
                 // sort by smell value

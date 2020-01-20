@@ -19,11 +19,12 @@ public class CsvEnumUtils {
         TEnum[] enumConstants = columnsClass.getEnumConstants();
         if (enumConstants == null) throw new IllegalArgumentException("Not an enum type: " + columnsClass);
         final int numColumns = enumConstants.length;
-        Object[] r = new Object[numColumns];
+        Object[] r = new Object[numColumns + 1];
         for (int i = 0; i < numColumns; i++) {
             TEnum e = enumConstants[i];
             r[i] = e.name();
         }
+        r[numColumns] = "Smelly";
         return r;
     }
 
@@ -64,16 +65,17 @@ public class CsvEnumUtils {
      * @return An array of objects, one for each column of the resulting CSV file
      */
     public static <TInput, TContext, TEnum extends Enum<?> & CsvColumnValueProvider<TInput, TContext>> Object[] dataRow(
-            Class<? extends TEnum> columnsClass, TInput o, TContext ctx) {
+            Class<? extends TEnum> columnsClass, TInput o, TContext ctx, boolean isSmelly) {
         TEnum[] enumConstants = columnsClass.getEnumConstants();
         if (enumConstants == null) throw new IllegalArgumentException("Not an enum type: " + columnsClass);
         final int len = enumConstants.length;
-        Object[] r = new Object[len];
+        Object[] r = new Object[len + 1];
         for (int i = 0; i < len; i++) {
             TEnum e = enumConstants[i];
             Object value = e.csvColumnValue(o, ctx);
             r[i] = value;
         }
+        r[len] = isSmelly;
         return r;
     }
 }
