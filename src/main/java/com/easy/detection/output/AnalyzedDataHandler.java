@@ -337,8 +337,9 @@ public class AnalyzedDataHandler {
                 // calculate values and add records
                 List<Object[]> fileData = new ArrayList<>();
                 for (File file : ctx.files.AllFiles()) {
-                    if (!skipFile(file)) {
-                        file.setSmelly(true);
+                    file.setSmelly(isSmellyFile(file));
+                    if (file.GetLinesOfAnnotatedCode() == 0) {
+                        continue;
                     }
                     fileData.add(p.dataRow(file, file.isSmelly()));
                 }
@@ -365,9 +366,8 @@ public class AnalyzedDataHandler {
                 csv.printRecord(p.headerRow());
                 List<Object[]> featureData = new ArrayList<>();
                 for (Feature feat : ctx.featureExpressions.GetFeatures()) {
-                    if (!skipFeature(feat)) {
-                        feat.setSmelly(true);
-                    }
+                    feat.setSmelly(isSmellyFeature(feat));
+                    // TODO: CHECK IF SKIPFEATURE IS REALLY NECESSARY
                     featureData.add(p.dataRow(feat, feat.isSmelly()));
                 }
                 // sort by smell value
@@ -394,8 +394,9 @@ public class AnalyzedDataHandler {
                 // calculate values and add records
                 List<Object[]> methodData = new ArrayList<>();
                 for (Method meth : ctx.functions.AllMethods()) {
-                    if (!skipMethod(meth)){
-                        meth.setSmelly(true);
+                    meth.setSmelly(isSmellyMethod(meth)); // Set true if method is smelly
+                    if (meth.GetLinesOfAnnotatedCode() == 0) { // if method does not contains any features we skip it
+                        continue;
                     }
                     Object[] row = p.dataRow(meth, meth.isSmelly());
                     methodData.add(row);
@@ -410,56 +411,56 @@ public class AnalyzedDataHandler {
     }
 
     /**
-     * Skip the method for csv file creation depending on the mandatory settings of the configuration
+     * Check if Method is smelly according to config file
      *
      * @param method the method
-     * @return true, if method does not fulfill mandatory settings
+     * @return true, if method fulfill mandatory settings
      */
-    private boolean skipMethod(Method method) {
+    private boolean isSmellyMethod(Method method) {
         final DetectionConfig conf = ctx.config;
         if (conf.Method_LoacToLocRatio_Mand
                 && ((float) method.GetLinesOfAnnotatedCode() / (float) method.getNetLoc()) < conf.Method_LoacToLocRatio) {
-            return true;
+            return false;
         }
         if (conf.Method_NumberOfFeatureConstants_Mand
                 && method.GetFeatureConstantCount() < conf.Method_NumberOfFeatureConstants) {
-            return true;
+            return false;
         }
         if (conf.Method_NestingSum_Mand && method.nestingSum < conf.Method_NestingSum) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
-     * Skip the method for CSV file creation depending on the mandatory settings of the configuration
+     * Checks if File is smelly according to config file
      *
      * @param file the file to test
-     * @return true, if method does not fulfill mandatory settings
+     * @return true, if file fulfill mandatory settings
      */
-    private boolean skipFile(File file) {
+    private boolean isSmellyFile(File file) {
         final DetectionConfig conf = ctx.config;
         if (conf.File_LoacToLocRatio_Mand
                 && ((float) file.GetLinesOfAnnotatedCode() / (float) file.loc) < conf.File_LoacToLocRatio)
-            return true;
+            return false;
         if (conf.File_NumberOfFeatureConstants_Mand
                 && file.GetFeatureConstantCount() < conf.File_NumberOfFeatureConstants)
-            return true;
-        if (conf.File_NestingSum_Mand && file.nestingSum < conf.File_NestingSum) return true;
-        return false;
+            return false;
+        if (conf.File_NestingSum_Mand && file.nestingSum < conf.File_NestingSum) return false;
+        return true;
     }
 
     /**
-     * Skip the feature for csv file creation depending on the mandatory settings of the configuration
+     * Check if feature is smelly according to config file
      *
      * @param feat the feature
-     * @return true, if feature does not fulfill mandatory settings
+     * @return true, if feature fulfill mandatory settings
      */
-    private boolean skipFeature(Feature feat) {
+    private boolean isSmellyFeature(Feature feat) {
         final DetectionConfig conf = ctx.config;
-        if (conf.Feature_NumberNofc_Mand && (feat.getReferences().size() < conf.Feature_NumberNofc)) return true;
-        if (conf.Feature_NumberLofc_Mand && (feat.getLofc() < conf.Feature_NumberLofc)) return true;
-        return false;
+        if (conf.Feature_NumberNofc_Mand && (feat.getReferences().size() < conf.Feature_NumberNofc)) return false;
+        if (conf.Feature_NumberLofc_Mand && (feat.getLofc() < conf.Feature_NumberLofc)) return false;
+        return true;
     }
     /**** CSV Start End Saving *****/
 }
