@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  * Representation of a function in the analyzed source code
  */
 public class Method {
+    private boolean smelly = false;
     private static final Logger LOG = Logger.getLogger(Method.class);
     /**
      * Compares functions by occurrence in their file, in ascending order.  Specifically, functions are first compared
@@ -425,4 +426,13 @@ public class Method {
 //    public String getSourceCode() {
 //        return sourceCode;
 //    }
+
+
+    public boolean isSmelly() {
+        return smelly;
+    }
+
+    public void setSmelly(boolean smelly) {
+        this.smelly = smelly;
+    }
 }

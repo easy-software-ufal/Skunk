@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class File {
+    private boolean isSmelly = false;
     private final Context ctx;
     /**
      * the path to the file
@@ -242,5 +243,13 @@ public class File {
     @Override
     public String toString() {
         return String.format("File [FilePathForDisplay()=%s]", FilePathForDisplay());
+    }
+
+    public boolean isSmelly() {
+        return isSmelly;
+    }
+
+    public void setSmelly(boolean smelly) {
+        isSmelly = smelly;
     }
 }

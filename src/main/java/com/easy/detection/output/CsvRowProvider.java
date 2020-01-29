@@ -29,7 +29,7 @@ public class CsvRowProvider<TInput, TContext, TEnum extends Enum<?> & CsvColumnV
      * @param o The input object
      * @return An array of objects, one for each column of the resulting CSV file
      */
-    public Object[] dataRow(TInput o) {
-        return CsvEnumUtils.dataRow(columnsClass, o, ctx);
+    public Object[] dataRow(TInput o, boolean isSmelly) {
+        return CsvEnumUtils.dataRow(columnsClass, o, ctx, isSmelly);
     }
 }

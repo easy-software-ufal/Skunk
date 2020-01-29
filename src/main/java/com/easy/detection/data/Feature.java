@@ -6,6 +6,7 @@ import java.util.*;
  * The Class Feature.
  */
 public class Feature implements Comparable<Feature> {
+    private boolean isSmelly = false;
     private final Context ctx;
     /**
      * The name of the feature.
@@ -107,5 +108,13 @@ public class Feature implements Comparable<Feature> {
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "{" + "Name='" + Name + '\'' + '}';
+    }
+
+    public boolean isSmelly() {
+        return isSmelly;
+    }
+
+    public void setSmelly(boolean smelly) {
+        isSmelly = smelly;
     }
 }
